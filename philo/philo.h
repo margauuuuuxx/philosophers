@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/08/31 12:20:39 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/03 22:15:31 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,15 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <limits.h>
+#include <errno.h>
 
 typedef pthread_mutex_t t_mutex;
 
+struct  s_data;
+
 typedef struct s_data   t_data;
+typedef struct s_philo  t_philo;
+
 
 typedef struct s_fork
 {
@@ -31,17 +36,17 @@ typedef struct s_fork
     
 }   t_fork;
 
-typedef struct s_philo
+struct s_philo
  {
     int         id;
     long        meals_nbr;
     int         full; // if meals_nbr == max_number of meals 
     long        last_meal_time;
-    t_fork      *left_fork;
-    t_fork      *right_fork;
+    t_fork      *first_fork;
+    t_fork      *second_fork;
     pthread_t   thread_id;
     t_data      *data;
- }  t_philo;
+ };
  
 struct s_data
 {
@@ -51,10 +56,27 @@ struct s_data
     long    time_to_sleep;
     long    nbr_max_meals;
     long    start_t;
-    int     end_t;
+    int     end;
     t_fork  *forks;
     t_philo *philos;
-}   t_data;
+};
 
+typedef enum e_opcode
+{
+    LOCK,
+    UNLOCK,
+    INIT,
+    DESTROY,
+    CREATE,
+    JOIN,
+    DETACH,
+}   t_opcode;
+
+// parsing
+void    parse_input(t_data *data, char **argv);
+
+// utils
+void    error_exit(const char *error);
+long    atol(const char *str);
 
 #endif
