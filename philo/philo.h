@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/03 22:15:31 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:24:01 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ struct s_data
     long    nbr_max_meals;
     long    start_t;
     int     end;
+    int     all_threads_ready;
+    t_mutex data_mutex;
     t_fork  *forks;
     t_philo *philos;
 };
