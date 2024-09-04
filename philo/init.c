@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:04:00 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 12:24:47 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:02:10 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void philo_init(t_data *data)
         philo->full = -1;
         philo->meals_nbr = 0;
         philo->data = data;
+        safe_mutex(philo->philo_mutex, INIT);
         assign_forks(philo, data->forks, i);
         i++;
     }
@@ -65,6 +66,7 @@ void    data_init(t_data *data)
     data->all_threads_ready = 0;
     data->philos = safe_malloc(data->philos_nbr * sizeof(t_philo));
     safe_mutex(data->data_mutex, INIT);
+    safe_mutex(data->write_lock, INIT);
     data->forks = safe_malloc(data->philos_nbr * sizeof(t_fork));
     while (i < data->philos_nbr)
     {

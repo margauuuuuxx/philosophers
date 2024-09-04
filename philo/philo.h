@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 13:08:36 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:18:30 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <sys/time.h>
 #include <limits.h>
 #include <errno.h>
+
+#define DEBUG_MODE 1 // if debug mode == 1 --> then its on 
 
 typedef pthread_mutex_t t_mutex;
 
@@ -45,6 +47,7 @@ struct s_philo
     t_fork      *first_fork;
     t_fork      *second_fork;
     pthread_t   thread_id;
+    t_mutex     philo_mutex;
     t_data      *data;
  };
  
@@ -59,6 +62,7 @@ struct s_data
     int     end;
     int     all_threads_ready;
     t_mutex data_mutex;
+    t_mutex write_lock;
     t_fork  *forks;
     t_philo *philos;
 };
@@ -83,11 +87,43 @@ typedef enum e_time_code
     MICROSECOND,
 }   t_time_code;
 
+// codes for philo states
+typedef enum e_status
+{
+    EATING,
+    SLEEPING,
+    THINKING,
+    TAKE_FIRST_FORK,
+    TAKE_SECOND_FORK,
+    DIED,
+}   t_philo_status;
+
+
+//      ##  FUNCTONS    ##
+// dinner
+void    *dinner_simulation(void *stuff);
+void    dinner_start(t_data *data);
+// display
+void    display_status(t_philo_status status, t_philo *philo, int debug);
+//  getters & setters
+void    set_int(t_mutex *mutex, int *dest, int value);
+int     get_int(t_mutex mutex, int *value);
+long    set_long(t_mutex *mutex, long *dest, long value);
+long    get_long (t_mutex mutex, long *value);
+int     simulation_finished(t_data *data);
+// init
+void    data_init(t_data *data);
 // parsing
 void    parse_input(t_data *data, char **argv);
-
+// safe
+void    *safe_malloc(size_t bytes);
+void    *safe_mutex(t_mutex *mutex, t_opcode opcode);
+void    safe_threads(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode);
+// synchro utils
+void    wait_all_threads(t_data *data);
 // utils
 void    error_exit(const char *error);
-long    atol(const char *str);
+long    gettime(t_time_code time_code);
+void    precise_uslee(long usec, t_data *data);
 
 #endif
