@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:13:27 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/03 21:39:13 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:14:36 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,24 @@ long    atol(const char *str)
     if (nbr > INT_MAX)
         error_exit("Invalid input: number(s) too big");
     return (nbr);
+}
+
+/*
+    time code --> sec ms μs
+    struct timeval {
+        time_t  tv_sec; // SECONDS
+        suseconds_t tv_usec; // MICROSECONDS
+    }
+        --> defined in <sys/time.h> and used in the fct gettimeofday
+*/
+long    gettime(t_time_code time_code)
+{
+    struct timeval  tv;
+
+    if (gettimeofday(&tv, NULL))
+        error_exit("Function gettimeofday failed.");
+    if (time_code == SECOND)
+        return(tv.tv_sec);
+    if (time_code == MICROSECOND)
+        return(tv.tv_usec);
 }

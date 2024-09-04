@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:12:59 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 12:23:24 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:03:50 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void    *dinner_simulation(void *stuff)
     
     philo = (t_philo *)stuff;
     wait_all_threads(philo->data);
+    return (NULL);
 }
 
 /*
@@ -50,5 +51,7 @@ void    dinner_start(t_data *data)
             i++;
         }
     }
+    
+    set_int(&data->data_mutex, data->all_threads_ready, 1);
     
 }

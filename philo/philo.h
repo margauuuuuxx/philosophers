@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 12:24:01 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:08:36 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ struct s_data
     t_philo *philos;
 };
 
+// codes for mutex & thread fcts
 typedef enum e_opcode
 {
     LOCK,
@@ -73,6 +74,14 @@ typedef enum e_opcode
     JOIN,
     DETACH,
 }   t_opcode;
+
+// codes for gettime
+typedef enum e_time_code
+{
+    SECOND,
+    MILISECOND,
+    MICROSECOND,
+}   t_time_code;
 
 // parsing
 void    parse_input(t_data *data, char **argv);

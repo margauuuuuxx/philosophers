@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:25:28 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 12:33:14 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:53:42 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,9 @@ long    get_long(t_mutex mutex, long *value)
     res = *value;
     safe_mutex(mutex, UNLOCK);
     return (res);
+}
+
+int simulation_finished(t_data *data)
+{
+    return(get_int(data->data_mutex, &data->end));
 }
