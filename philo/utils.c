@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:13:27 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 15:15:06 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:12:36 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,29 @@ void    precise_usleep(long usec, t_data *data)
         elapsed = gettime(MICROSECOND) - start;
         remaining = usec - elapsed;
         if (remaining > 1e3)
-            usleep(usec / 2);
+            usleep(remaining / 2);
         else
         {
             while ((gettime(MICROSECOND) - start) < usec)
                 ;
         }
     }
+}
+
+void clean  (t_data *data)
+{
+    t_philo *philo;
+    int     i;
+    
+    i = 0;
+    while (i < data->philos_nbr)
+    {
+        philo = data->philos + i;
+        safe_mutex(&philo->philo_mutex, DESTROY);
+        i++;
+    }
+    safe_mutex(&data->data_mutex, DESTROY);
+    safe_mutex(&data->write_lock, DESTROY);
+    free(data->forks);
+    free(&data->philos);
 }

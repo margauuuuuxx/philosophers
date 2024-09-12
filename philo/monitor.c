@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 12:55:23 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 13:31:07 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:02:07 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int  philo_died(t_philo *philo)
     if (get_int(philo->philo_mutex, &philo->full) == 1)
         return(0);
     elapsed = gettime(MILISECOND) - get_long(philo->philo_mutex, &philo->last_meal_time);
-    t_to_die = philo->data->time_to_die;
+    t_to_die = philo->data->time_to_die / 1e3;
     if (elapsed > t_to_die) // CHECK IF >=
         return (1);
     return (0);

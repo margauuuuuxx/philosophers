@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:12:59 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 13:46:03 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:46:22 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,34 @@ static void eat(t_philo *philo)
     safe_mutex(&philo->second_fork->fork, UNLOCK);
 }
 
-static void thinking(t_philo *philo, int debug)
+/*
+    1. even case --> fair
+    2. odd case --> unfair
+        --> compute the available time to think
+*/
+void thinking(t_philo *philo, int pre_simulation, int debug)
 {
-    display_status(THINKING, philo, DEBUG_MODE);
+    long    t_eat;
+    long    t_sleep;
+    long    t_think;
+    
+    if (pre_simulation == 0)
+        display_status(THINKING, philo, DEBUG_MODE);
+    if (philo->data->philos_nbr % 2 ==0)
+        return;
+    t_eat = philo->data->time_to_eat;
+    t_sleep = philo->data->time_to_sleep;
+    t_think = (t_eat * 2) - t_sleep;
+    if (t_think < 0)
+        t_think = 0;
+    precise_usleep(t_think * 0.42, philo->data);
 }
 
 /*
     1. wait for all philos then synchro starts
-    2. loop:
+    2. desynchronize the loop to cutsom the thinking time
+        and make the system faire in case of odd nbr of philos
+    3. loop:
         a) is full ?
         b) eat
         c) sleep
@@ -78,6 +98,7 @@ void    *dinner_simulation(void *stuff)
     wait_all_threads(philo->data);
     set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILISECOND));
     increase_long(&philo->data->data_mutex, &philo->data->threads_running_nbr);
+    desynchronize_philos(philo);
     while (simulation_finished(philo->data) == 0)
     {
         if (philo->full == 1)
@@ -85,7 +106,7 @@ void    *dinner_simulation(void *stuff)
         eat(philo);
         display_status(SLEEPING, philo, DEBUG_MODE);
         precise_usleep(philo->data->time_to_sleep, philo->data);
-        thinking(philo, 0);
+        thinking(philo, 0, DEBUG_MODE);
     }
     return (NULL);
 }
@@ -125,5 +146,6 @@ void    dinner_start(t_data *data)
         safe_thread(&data->philos[i].id, NULL, NULL, JOIN);
         i++;
     }
-    
+    set_int(&data->data_mutex, data->end, 1);
+    safe_threads(data->monitor, NULL, NULL, JOIN);
 }

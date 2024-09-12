@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:22:09 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 14:48:24 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:47:55 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void    display_status(t_philo_status status, t_philo *philo, int debug)
     elapsed = gettime(MILISECOND);
     if (philo->full == 1)
         return;
-    safe_mutex(philo->data->write_lock, LOCK);
+    safe_mutex(&philo->data->write_lock, LOCK);
     if (debug == 1)
         display_status_debug(status, philo, elapsed);
     else 
@@ -56,5 +56,5 @@ void    display_status(t_philo_status status, t_philo *philo, int debug)
         else if (status == DIED)
             printf("%-6ld %d died\n", elapsed, philo->id); 
     }
-    safe_mutex(philo->data->write_lock, UNLOCK);
+    safe_mutex(&philo->data->write_lock, UNLOCK);
 }

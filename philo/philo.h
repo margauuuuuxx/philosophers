@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 13:06:55 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:45:06 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef enum e_status
 
 //      ##  FUNCTONS    ##
 // dinner
+void    thinking(t_philo *philo, int pre_simulation, int debug);
 void    *dinner_simulation(void *stuff);
 void    dinner_start(t_data *data);
 // display
@@ -115,6 +116,8 @@ long    get_long (t_mutex mutex, long *value);
 int     simulation_finished(t_data *data);
 // init
 void    data_init(t_data *data);
+// monitor
+void    *monitor_dinner(void *input);
 // parsing
 void    parse_input(t_data *data, char **argv);
 // safe
@@ -129,5 +132,6 @@ void    increase_long(t_mutex *mutex, long *value);
 void    error_exit(const char *error);
 long    gettime(t_time_code time_code);
 void    precise_usleep(long usec, t_data *data);
+void    clean(t_data *data);
 
 #endif

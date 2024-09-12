@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:57:26 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 13:05:37 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:45:39 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,21 @@ void    increase_long(t_mutex *mutex, long *value)
     safe_mutex(mutex, LOCK);
     (*value)++;
     safe_mutex(mutex, UNLOCK);
+}
+
+/*
+    Make the system fair
+*/
+void    desynchronize_philos(t_philo *philo)
+{
+    if (philo->data->philos_nbr % 2 == 0)
+    {
+        if (philo->id % 2 == 0)
+            precise_usleep(3e4, philo->data);
+    }
+    else
+    {
+        if (philo->id % 2)
+            thinking(philo, 1, DEBUG_MODE);
+    }
 }

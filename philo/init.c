@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:04:00 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 13:00:22 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:48:00 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void philo_init(t_data *data)
         philo->full = -1;
         philo->meals_nbr = 0;
         philo->data = data;
-        safe_mutex(philo->philo_mutex, INIT);
+        safe_mutex(&philo->philo_mutex, INIT);
         assign_forks(philo, data->forks, i);
         i++;
     }
