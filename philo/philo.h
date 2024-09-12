@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 15:18:30 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:53:17 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,6 @@ void    wait_all_threads(t_data *data);
 // utils
 void    error_exit(const char *error);
 long    gettime(t_time_code time_code);
-void    precise_uslee(long usec, t_data *data);
+void    precise_usleep(long usec, t_data *data);
 
 #endif

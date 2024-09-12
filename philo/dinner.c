@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:12:59 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 15:08:14 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:54:31 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static void eat(t_philo *philo)
     display_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
     safe_mutex(&philo->second_fork->fork, LOCK);
     display_status(TAKE_SECOND_FORK, philo, DEBUG_MODE);
-    set_long(philo->philo_mutex, &philo->last_meal_time, gettime(MILISECOND));
+    set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILISECOND));
     philo->meals_nbr++;
     display_status(EATING, philo, DEBUG_MODE);
     precise_usleep(philo->data->time_to_eat, philo->data);
     if (philo->data->nbr_max_meals > 0 
             && philo->meals_nbr == philo->data->nbr_max_meals)
-        set_int(philo->philo_mutex, philo->full, 1);
+        set_int(&philo->philo_mutex, philo->full, 1);
     safe_mutex(&philo->first_fork->fork, UNLOCK);
     safe_mutex(&philo->second_fork->fork, UNLOCK);
 }
@@ -65,7 +65,7 @@ void    *dinner_simulation(void *stuff)
         eat(philo);
         display_status(SLEEPING, philo, DEBUG_MODE);
         precise_usleep(philo->data->time_to_sleep, philo->data);
-        thinking(philo);
+        thinking(philo, 0);
     }
     return (NULL);
 }
@@ -97,7 +97,7 @@ void    dinner_start(t_data *data)
         }
     }
     data->start_t = gettime(MILISECOND);
-    set_int(&data->data_mutex, data->all_threads_ready, 1);
+    set_int(&data->data_mutex, &data->all_threads_ready, 1);
     i = 0;
     while (i < data->philos_nbr)
     {
