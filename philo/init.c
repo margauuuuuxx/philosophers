@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:04:00 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 11:55:20 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:00:22 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static void assign_forks(t_philo *philo, t_fork *forks, int i)
         philo->first_fork = &forks[i];
         philo->second_fork = &forks[philo->id % philo_nbr];
     }
-    else
-    {
-        philo->first_fork = &forks[philo->id % philo_nbr];
-        philo->second_fork = &forks[i];
-    }
+//     else
+//     {
+//         philo->first_fork = &forks[philo->id % philo_nbr];
+//         philo->second_fork = &forks[i];
+//     }
 }
 
 static void philo_init(t_data *data)
@@ -64,6 +64,7 @@ void    data_init(t_data *data)
     i = 0;
     data->end = 0;
     data->all_threads_ready = 0;
+    data->threads_running_nbr = 0;
     data->philos = safe_malloc(data->philos_nbr * sizeof(t_philo));
     safe_mutex(&data->data_mutex, INIT);
     safe_mutex(&data->write_lock, INIT);

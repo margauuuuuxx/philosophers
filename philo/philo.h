@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 11:53:17 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:06:55 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ struct s_data
     long    time_to_sleep;
     long    nbr_max_meals;
     long    start_t;
+    long    threads_running_nbr;
     int     end;
     int     all_threads_ready;
+    pthread_t   monitor;
     t_mutex data_mutex;
     t_mutex write_lock;
     t_fork  *forks;
@@ -121,6 +123,8 @@ void    *safe_mutex(t_mutex *mutex, t_opcode opcode);
 void    safe_threads(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode);
 // synchro utils
 void    wait_all_threads(t_data *data);
+int     all_threads_running(t_mutex *mutex, long *threads_running, long philo_nbr);
+void    increase_long(t_mutex *mutex, long *value);
 // utils
 void    error_exit(const char *error);
 long    gettime(t_time_code time_code);

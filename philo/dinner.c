@@ -6,11 +6,30 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:12:59 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 11:54:31 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:46:03 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*
+    1. fake to lock the fork
+    2. sleep until monitor busts it
+*/
+void    *only_philo(void *arg)
+{
+    t_philo *philo;
+
+    philo = (t_philo *)arg;
+    wait_all_threads(philo->data);
+    set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILISECOND));
+    increase_long(&philo->data->data_mutex, &philo->data->threads_running_nbr);
+    display_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
+    while (simulation_finished(philo->data) == 0)
+        usleep(200);
+    return (NULL);
+}
+
 
 /*
     1. grab the forks
@@ -21,7 +40,6 @@
         - eventually bool full
     3. release forks 
 */    
-
 static void eat(t_philo *philo)
 {
     safe_mutex(&philo->first_fork->fork, LOCK);
@@ -58,6 +76,8 @@ void    *dinner_simulation(void *stuff)
     
     philo = (t_philo *)stuff;
     wait_all_threads(philo->data);
+    set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILISECOND));
+    increase_long(&philo->data->data_mutex, &philo->data->threads_running_nbr);
     while (simulation_finished(philo->data) == 0)
     {
         if (philo->full == 1)
@@ -86,7 +106,7 @@ void    dinner_start(t_data *data)
     if (data->nbr_max_meals == 0)
         return;
     else if (data->philos_nbr == 1)
-        //TO DO;
+        safe_thread(data->philos[0].id, only_philo, &data->philos[0], CREATE);
     else
     {
         while (i < data->philos_nbr)
@@ -96,6 +116,7 @@ void    dinner_start(t_data *data)
             i++;
         }
     }
+    safe_thread(&data->monitor, monitor_dinner, data, CREATE);
     data->start_t = gettime(MILISECOND);
     set_int(&data->data_mutex, &data->all_threads_ready, 1);
     i = 0;

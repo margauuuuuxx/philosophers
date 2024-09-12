@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:57:26 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 15:18:47 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:05:37 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,26 @@ void    wait_all_threads(t_data *data)
 {
     while (get_int(data->data_mutex, data->all_threads_ready) == 0)
         ;
+}
+
+/*
+    monitor waits until all threads are running
+*/
+int all_threads_running(t_mutex *mutex, long *threads_running, long philo_nbr)
+{
+    int result;
+
+    result = 0;
+    safe_mutex(mutex, LOCK);
+    if (*threads_running = philo_nbr)
+        result = 1;
+    safe_mutex(mutex, UNLOCK);
+    return(result);
+}
+
+void    increase_long(t_mutex *mutex, long *value)
+{
+    safe_mutex(mutex, LOCK);
+    (*value)++;
+    safe_mutex(mutex, UNLOCK);
 }
