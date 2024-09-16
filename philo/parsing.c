@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:22:38 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 10:57:25 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:22:58 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static  const char *valid_input(const char *str)
     if (!(*str >= '0' && *str <= '9'))
         error_exit("Invalid input: not only numbers provided");
     nbr = str;
-    while (*str >= '0' && *str <= '9')
+    while (*str >= '0' && *str <= '9' && *str != '\0')
     {
         str++;
         len++;
@@ -52,10 +52,43 @@ static long    ft_atol(const char *str)
     nbr = 0;
     str = valid_input(str);
     while (*str >= '0' && *str <= '9')
-        nbr = nbr * 10 + (*str++ - '0');
+    {
+        nbr = nbr * 10 + (*str - '0');
+        str++;
+    }
     if (nbr > INT_MAX)
         error_exit("Invalid input: number(s) too big");
     return (nbr);
+}
+
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+static void	print_nb(long n, int fd)
+{
+	if (n / 10)
+	{
+		print_nb(n / 10, fd);
+		print_nb(n % 10, fd);
+	}
+	else
+		ft_putchar_fd(n + '0', fd);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	long	nbr;
+
+	nbr = (long)n;
+	if (nbr < 0)
+	{
+		write(fd, "-", 1);
+		nbr = -nbr;
+	}
+	print_nb(nbr, fd);
 }
 
 /*
@@ -66,11 +99,22 @@ because it's the unit of usleep()
 */
 void    parse_input(t_data *data, char **argv)
 {
+    printf("HELLO\n");
     data->philos_nbr = ft_atol(argv[1]);
+    printf("HELOOOOOOOOOO\n");
+    printf("%ld\n",data->philos_nbr);
     data->time_to_die = ft_atol(argv[2]) * 1e3;
     data->time_to_eat = ft_atol(argv[3]) * 1e3;
     data->time_to_sleep = ft_atol(argv[4]) * 1e3;
-    printf("%ld %ld %ld %ld", data->philos_nbr, data->time_to_die, data->time_to_die, data->time_to_die);
+    printf("%d %d %d %d", (int)data->philos_nbr,(int) data->time_to_die, (int)data->time_to_die, (int)data->time_to_die);
+    ft_putnbr_fd((int) data->philos_nbr, 2);
+    printf("\n");
+    ft_putnbr_fd((int) data->time_to_die, 2);
+    printf("\n");
+    ft_putnbr_fd((int) data->time_to_eat, 2);
+    printf("\n");
+    ft_putnbr_fd((int) data->time_to_sleep, 2);
+    printf("\n");
     if (data->time_to_die < 6e4
         || data->time_to_eat < 6e4
         || data->time_to_die < 6e4)

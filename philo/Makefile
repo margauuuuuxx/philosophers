@@ -1,6 +1,6 @@
 NAME	= philo
 CC		= cc 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 RM		= rm -f
 
 SRCS	= dinner.c display.c getters_setters.c init.c main.c \
