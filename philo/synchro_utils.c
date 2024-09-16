@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   synchro_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:57:26 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 15:45:39 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:41:56 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 void    wait_all_threads(t_data *data)
 {
-    while (get_int(data->data_mutex, data->all_threads_ready) == 0)
+    while (get_int(data->data_mutex, &data->all_threads_ready) == 0)
         ;
 }
 
@@ -32,7 +32,7 @@ int all_threads_running(t_mutex *mutex, long *threads_running, long philo_nbr)
 
     result = 0;
     safe_mutex(mutex, LOCK);
-    if (*threads_running = philo_nbr)
+    if (*threads_running == philo_nbr)
         result = 1;
     safe_mutex(mutex, UNLOCK);
     return(result);
@@ -58,6 +58,6 @@ void    desynchronize_philos(t_philo *philo)
     else
     {
         if (philo->id % 2)
-            thinking(philo, 1, DEBUG_MODE);
+            thinking(philo, 1);
     }
 }

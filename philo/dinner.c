@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:12:59 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 15:46:22 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:44:16 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void eat(t_philo *philo)
     precise_usleep(philo->data->time_to_eat, philo->data);
     if (philo->data->nbr_max_meals > 0 
             && philo->meals_nbr == philo->data->nbr_max_meals)
-        set_int(&philo->philo_mutex, philo->full, 1);
+        set_int(&philo->philo_mutex, &philo->full, 1);
     safe_mutex(&philo->first_fork->fork, UNLOCK);
     safe_mutex(&philo->second_fork->fork, UNLOCK);
 }
@@ -62,7 +62,7 @@ static void eat(t_philo *philo)
     2. odd case --> unfair
         --> compute the available time to think
 */
-void thinking(t_philo *philo, int pre_simulation, int debug)
+void thinking(t_philo *philo, int pre_simulation)
 {
     long    t_eat;
     long    t_sleep;
@@ -106,7 +106,7 @@ void    *dinner_simulation(void *stuff)
         eat(philo);
         display_status(SLEEPING, philo, DEBUG_MODE);
         precise_usleep(philo->data->time_to_sleep, philo->data);
-        thinking(philo, 0, DEBUG_MODE);
+        thinking(philo, 0);
     }
     return (NULL);
 }
@@ -127,7 +127,7 @@ void    dinner_start(t_data *data)
     if (data->nbr_max_meals == 0)
         return;
     else if (data->philos_nbr == 1)
-        safe_thread(data->philos[0].id, only_philo, &data->philos[0], CREATE);
+        safe_threads(&data->philos[0].thread_id, only_philo, &data->philos[0], CREATE);
     else
     {
         while (i < data->philos_nbr)
@@ -137,15 +137,15 @@ void    dinner_start(t_data *data)
             i++;
         }
     }
-    safe_thread(&data->monitor, monitor_dinner, data, CREATE);
+    safe_threads(&data->monitor, monitor_dinner(data), data, CREATE);
     data->start_t = gettime(MILISECOND);
     set_int(&data->data_mutex, &data->all_threads_ready, 1);
     i = 0;
     while (i < data->philos_nbr)
     {
-        safe_thread(&data->philos[i].id, NULL, NULL, JOIN);
+        safe_threads(&data->philos[i].thread_id, NULL, NULL, JOIN);
         i++;
     }
-    set_int(&data->data_mutex, data->end, 1);
-    safe_threads(data->monitor, NULL, NULL, JOIN);
+    set_int(&data->data_mutex, &data->end, 1);
+    safe_threads(&data->monitor, NULL, NULL, JOIN);
 }

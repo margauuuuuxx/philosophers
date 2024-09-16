@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters_setters.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:25:28 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/04 12:53:42 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:30:45 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int get_int(t_mutex mutex, int *value)
 {
     int res;
 
-    safe_mutex(mutex, LOCK);
+    safe_mutex(&mutex, LOCK);
     res = *value;
-    safe_mutex(mutex, UNLOCK);
+    safe_mutex(&mutex, UNLOCK);
     return (res);
 }
 
-long    set_long(t_mutex *mutex, long *dest, long value)
+void    set_long(t_mutex *mutex, long *dest, long value)
 {
     safe_mutex(mutex, LOCK);
     *dest = value;
@@ -46,9 +46,9 @@ long    get_long(t_mutex mutex, long *value)
 {
     long    res;
 
-    safe_mutex(mutex, LOCK);
+    safe_mutex(&mutex, LOCK);
     res = *value;
-    safe_mutex(mutex, UNLOCK);
+    safe_mutex(&mutex, UNLOCK);
     return (res);
 }
 

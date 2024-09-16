@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 15:45:06 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:30:56 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef enum e_status
 
 //      ##  FUNCTONS    ##
 // dinner
-void    thinking(t_philo *philo, int pre_simulation, int debug);
+void    thinking(t_philo *philo, int pre_simulation);
 void    *dinner_simulation(void *stuff);
 void    dinner_start(t_data *data);
 // display
@@ -111,7 +111,7 @@ void    display_status(t_philo_status status, t_philo *philo, int debug);
 //  getters & setters
 void    set_int(t_mutex *mutex, int *dest, int value);
 int     get_int(t_mutex mutex, int *value);
-long    set_long(t_mutex *mutex, long *dest, long value);
+void    set_long(t_mutex *mutex, long *dest, long value);
 long    get_long (t_mutex mutex, long *value);
 int     simulation_finished(t_data *data);
 // init
@@ -128,6 +128,7 @@ void    safe_threads(pthread_t *thread, void *(*foo)(void *), void *data, t_opco
 void    wait_all_threads(t_data *data);
 int     all_threads_running(t_mutex *mutex, long *threads_running, long philo_nbr);
 void    increase_long(t_mutex *mutex, long *value);
+void    desynchronize_philos(t_philo *philo);
 // utils
 void    error_exit(const char *error);
 long    gettime(t_time_code time_code);

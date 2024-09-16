@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:22:09 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 15:47:55 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:29:09 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
     <time in ms> <philo_id> <action>
 */
 
-static void write_status_debug(t_philo_status status, t_philo *philo, long elapsed)
+static void display_status_debug(t_philo_status status, t_philo *philo, long elapsed)
 {
     if (status == TAKE_FIRST_FORK && simulation_finished(philo->data) == 0)
         printf("%-6ld %d has taken its 1st fork\n\tfork id: %d", elapsed, philo->id, philo->first_fork->fork_id);
     if (status == TAKE_SECOND_FORK && simulation_finished(philo->data) == 0)
         printf("%-6ld %d has taken its second fork\n\t fork id: %d", elapsed, philo->id, philo->second_fork->fork_id);
     else if (status == EATING && simulation_finished(philo->data) == 0)
-        printf("%-6ld %d is eating\n\tnumber of meals eaten by %d: %d", elapsed, philo->id, philo->id, philo->meals_nbr);
+        printf("%-6ld %d is eating\n\tnumber of meals eaten by %d: %ld", elapsed, philo->id, philo->id, philo->meals_nbr);
     else if (status == SLEEPING && simulation_finished(philo->data) == 0)
         printf("%-6ld %d is sleeping\n", elapsed, philo->id);
     else if (status == THINKING && simulation_finished(philo->data) == 0)

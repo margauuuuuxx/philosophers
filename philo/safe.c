@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:38:40 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/03 21:51:55 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:41:14 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void handle_mutex_errors(int status, t_opcode opcode)
          error_exit("The value specified by mutex is invalid.");
     else if (status == EINVAL && opcode == INIT)
         error_exit("The value specified by attr is invalid.");
-    else if (status = EDEADLK)
+    else if (status == EDEADLK)
         error_exit("A deadlock would occur if the thread blocked waiting for mutex.");
     else if (status == EPERM)
         error_exit("The current thread does not hold a lock on mutex");
@@ -64,15 +64,16 @@ static void handle_mutex_errors(int status, t_opcode opcode)
 void    *safe_mutex(t_mutex *mutex, t_opcode opcode)
 {
     if (opcode == LOCK)
-        handle_mutex_error(pthread_mutex_lock(mutex), opcode);
+        handle_mutex_errors(pthread_mutex_lock(mutex), opcode);
     else if (opcode == UNLOCK)
-        hanlde_mutex_error(pthread_mutex_unlock(mutex), opcode);
+        handle_mutex_errors(pthread_mutex_unlock(mutex), opcode);
     else if (opcode == INIT)
-        handle_mutex_error(pthread_mutex_init(mutex, NULL), opcode);
+        handle_mutex_errors(pthread_mutex_init(mutex, NULL), opcode);
     else if (opcode == DESTROY)
-        handle_mutez_error(pthread_mutex_destroy(mutex), opcode);
+        handle_mutex_errors(pthread_mutex_destroy(mutex), opcode);
     else
         error_exit("Wrong opcode for mutex handle");
+    return (NULL);
 }
 
 /*
@@ -96,6 +97,8 @@ static void handle_thread_errors(int status, t_opcode opcode)
     else if (status == EDEADLK)
         error_exit("A deadlock was detected or the value of \
                     thread specifies teh calling thread.");
+    else
+        error_exit("Unknown thread error.");
 }
 
 void    safe_threads(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode)
@@ -105,7 +108,7 @@ void    safe_threads(pthread_t *thread, void *(*foo)(void *), void *data, t_opco
     else if (opcode == JOIN)
         handle_thread_errors(pthread_join(*thread, NULL), opcode);
     else if (opcode == DETACH)
-        handle_thread_errors(pthread_detach(*thread), NULL);
+        handle_thread_errors(pthread_detach(*thread), opcode);
     else 
         error_exit("Wrong opcode for thread handle");
 }
