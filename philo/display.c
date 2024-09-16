@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:22:09 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 10:29:09 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:44:24 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 static void display_status_debug(t_philo_status status, t_philo *philo, long elapsed)
 {
+    (void) elapsed;
     if (status == TAKE_FIRST_FORK && simulation_finished(philo->data) == 0)
         printf("%-6ld %d has taken its 1st fork\n\tfork id: %d", elapsed, philo->id, philo->first_fork->fork_id);
     if (status == TAKE_SECOND_FORK && simulation_finished(philo->data) == 0)

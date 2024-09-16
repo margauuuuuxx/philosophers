@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 12:55:23 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 15:02:07 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:43:47 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    *monitor_dinner(void *input)
     int     i;
 
     data = (t_data *)input;
-    while (!all_threads_running(&data->data_mutex, &data->threads_running_nbr, data->philos_nbr))
+    while (all_threads_running(&data->data_mutex, &data->threads_running_nbr, data->philos_nbr))
         ;
     while (simulation_finished(data) == 0)
     {

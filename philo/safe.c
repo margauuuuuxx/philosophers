@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:38:40 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 10:41:14 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:02:41 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,21 @@ static void handle_thread_errors(int status, t_opcode opcode)
 
 void    safe_threads(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode)
 {
+    if (thread == NULL)
+    {
+        printf("Null thread safe thread function\n");
+        return;
+    }
+    if (data == NULL)
+    {
+        printf("Null data safe thread function\n");
+        return;
+    }
+    if (!opcode)
+    {
+        printf("Null opcode safe thread function\n");
+        return;
+    }
     if (opcode == CREATE)
         handle_thread_errors(pthread_create(thread, NULL, foo, data), opcode);
     else if (opcode == JOIN)

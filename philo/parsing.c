@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:22:38 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 14:22:58 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:46:09 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,22 +99,19 @@ because it's the unit of usleep()
 */
 void    parse_input(t_data *data, char **argv)
 {
-    printf("HELLO\n");
     data->philos_nbr = ft_atol(argv[1]);
-    printf("HELOOOOOOOOOO\n");
-    printf("%ld\n",data->philos_nbr);
     data->time_to_die = ft_atol(argv[2]) * 1e3;
     data->time_to_eat = ft_atol(argv[3]) * 1e3;
     data->time_to_sleep = ft_atol(argv[4]) * 1e3;
-    printf("%d %d %d %d", (int)data->philos_nbr,(int) data->time_to_die, (int)data->time_to_die, (int)data->time_to_die);
-    ft_putnbr_fd((int) data->philos_nbr, 2);
-    printf("\n");
-    ft_putnbr_fd((int) data->time_to_die, 2);
-    printf("\n");
-    ft_putnbr_fd((int) data->time_to_eat, 2);
-    printf("\n");
-    ft_putnbr_fd((int) data->time_to_sleep, 2);
-    printf("\n");
+    // printf("%d %d %d %d", (int)data->philos_nbr,(int) data->time_to_die, (int)data->time_to_die, (int)data->time_to_die);
+    // ft_putnbr_fd((int) data->philos_nbr, 2);
+    // printf("\n");
+    // ft_putnbr_fd((int) data->time_to_die, 2);
+    // printf("\n");
+    // ft_putnbr_fd((int) data->time_to_eat, 2);
+    // printf("\n");
+    // ft_putnbr_fd((int) data->time_to_sleep, 2);
+    // printf("\n");
     if (data->time_to_die < 6e4
         || data->time_to_eat < 6e4
         || data->time_to_die < 6e4)

@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 10:30:56 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:41:15 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <sys/time.h>
 #include <limits.h>
 #include <errno.h>
+#include <stdbool.h>
 
 #define DEBUG_MODE 1 // if debug mode == 1 --> then its on 
 

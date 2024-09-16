@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:12:59 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 10:44:16 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:09:27 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,12 @@ void    dinner_start(t_data *data)
     int i;
 
     i = 0;
+    if (!data)
+        printf("No data dinner start function\n");
     if (data->nbr_max_meals == 0)
         return;
+    if (data->philos[0].thread_id == NULL)
+        printf("No philos[0]\n");
     else if (data->philos_nbr == 1)
         safe_threads(&data->philos[0].thread_id, only_philo, &data->philos[0], CREATE);
     else
