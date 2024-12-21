@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 12:55:23 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 14:43:47 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:45:01 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 /*
     if t since las meal > t to die --> = 1

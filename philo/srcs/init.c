@@ -6,11 +6,11 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:04:00 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/12 15:48:00 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:57:06 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 
 /*
@@ -26,16 +26,18 @@ static void assign_forks(t_philo *philo, t_fork *forks, int i)
     int philo_nbr;
 
     philo_nbr = philo->data->philos_nbr;
+    printf("philo nbr dans assign fork: %d\n", philo_nbr);
     if (philo->id % 2 == 0)
     {
         philo->first_fork = &forks[i];
         philo->second_fork = &forks[philo->id % philo_nbr];
     }
-//     else
-//     {
-//         philo->first_fork = &forks[philo->id % philo_nbr];
-//         philo->second_fork = &forks[i];
-//     }
+    else
+    {
+        philo->first_fork = &forks[philo->id % philo_nbr];
+        philo->second_fork = &forks[i];
+    }
+    printf("Philo id: %d\n1st fork: %d\n2nd fork: %d\n\n", philo->id, philo->first_fork->fork_id, philo->second_fork->fork_id);
 }
 
 static void philo_init(t_data *data)

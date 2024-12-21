@@ -6,11 +6,11 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:27 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 14:40:10 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:32:46 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 /*
 ./philo <nbr of philos> <t die> <t eat> <t sleep> <max meals>

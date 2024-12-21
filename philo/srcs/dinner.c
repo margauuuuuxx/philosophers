@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:12:59 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 15:09:27 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:44:43 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 /*
     1. fake to lock the fork

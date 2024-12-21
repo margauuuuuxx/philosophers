@@ -6,11 +6,11 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:13:27 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 14:40:03 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:45:21 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 void    error_exit(const char *error)
 {
@@ -86,5 +86,5 @@ void clean  (t_data *data)
     safe_mutex(&data->data_mutex, DESTROY);
     safe_mutex(&data->write_lock, DESTROY);
     free(data->forks);
-    free(&data->philos);
+    free(data->philos);
 }

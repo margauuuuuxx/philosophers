@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   safe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:38:40 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 15:02:41 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:45:09 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 void    *safe_malloc(size_t bytes)
 {

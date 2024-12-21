@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   getters_setters.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:25:28 by marlonco          #+#    #+#             */
-/*   Updated: 2024/09/16 10:30:45 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:44:52 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 /*
         # PREVENTING RACE CONDITIONS #
