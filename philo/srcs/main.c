@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../includes/philo.h"
 
 /*
 ./philo <nbr of philos> <t die> <t eat> <t sleep> <max meals>
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     
     if (argc == 5 || argc == 6)
     {
-        parse_input(&data, argv);
+        parse_input(&data, argv); // --> OK
         data_init(&data);
         dinner_start(&data);
         clean(&data);

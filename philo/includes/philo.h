@@ -32,24 +32,25 @@ typedef struct s_data   t_data;
 typedef struct s_philo  t_philo;
 
 
-typedef struct s_fork
-{
-    t_mutex fork;
-    int     fork_id;
+// typedef struct s_fork
+// {
+//     t_mutex fork;
+//     int     fork_id;
     
-}   t_fork;
+// }   t_fork;
 
 struct s_philo
  {
     int         id;
     long        meals_nbr;
-    int         full; // if meals_nbr == max_number of meals 
+    bool         full; // if meals_nbr == max_number of meals 
     long        last_meal_time;
-    t_fork      *first_fork;
-    t_fork      *second_fork;
+    bool        dead;
+    // t_fork      *first_fork;
+    // t_fork      *second_fork;
     pthread_t   thread_id;
-    t_mutex     philo_mutex;
-    t_data      *data;
+    t_mutex     fork;
+    //t_data      *data;
  };
  
 struct s_data
@@ -60,13 +61,16 @@ struct s_data
     long    time_to_sleep;
     long    nbr_max_meals;
     long    start_t;
-    long    threads_running_nbr;
-    int     end;
-    int     all_threads_ready;
+    // long    threads_running_nbr;
+    // int     end;
+    // int     all_threads_ready;
     pthread_t   monitor;
     t_mutex data_mutex;
-    t_mutex write_lock;
-    t_fork  *forks;
+    t_mutex print_mutex;
+    t_mutex eat_mutex;
+    t_mutex time_mutex;
+    // t_mutex write_lock;
+    // t_fork  *forks;
     t_philo *philos;
 };
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../includes/philo.h"
 
 /*
     1. fake to lock the fork
@@ -22,6 +22,7 @@ void    *only_philo(void *arg)
 
     philo = (t_philo *)arg;
     wait_all_threads(philo->data);
+    printf("LAAA\n");
     set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILISECOND));
     increase_long(&philo->data->data_mutex, &philo->data->threads_running_nbr);
     display_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
@@ -128,12 +129,16 @@ void    dinner_start(t_data *data)
         printf("No data dinner start function\n");
     if (data->nbr_max_meals == 0)
         return;
-    if (data->philos[0].thread_id == NULL)
+    if (data->philos_nbr < 1)
         printf("No philos[0]\n");
     else if (data->philos_nbr == 1)
+    {
+        printf("111111\n");
         safe_threads(&data->philos[0].thread_id, only_philo, &data->philos[0], CREATE);
+    }
     else
     {
+        printf(">>>>> 1\n");
         while (i < data->philos_nbr)
         {
             safe_threads(&data->philos[i].thread_id, dinner_simulation, 

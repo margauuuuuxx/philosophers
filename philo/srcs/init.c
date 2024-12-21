@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../includes/philo.h"
 
 
 /*
@@ -21,7 +21,8 @@
     left fork   = (philo relative position (starting from 0) + 1) % philo nbr
                 = philo_id % philo nbr
 */
-static void assign_forks(t_philo *philo, t_fork *forks, int i)
+
+static void assign_forks(t_philo *philo, t_fork *forks, int i) // OK
 {
     int philo_nbr;
 
@@ -37,45 +38,49 @@ static void assign_forks(t_philo *philo, t_fork *forks, int i)
         philo->first_fork = &forks[philo->id % philo_nbr];
         philo->second_fork = &forks[i];
     }
-    printf("Philo id: %d\n1st fork: %d\n2nd fork: %d\n\n", philo->id, philo->first_fork->fork_id, philo->second_fork->fork_id);
+    //printf("Philo id: %d\n1st fork: %d\n2nd fork: %d\n\n", philo->id, philo->first_fork->fork_id, philo->second_fork->fork_id);
 }
 
-static void philo_init(t_data *data)
+static void philo_init(t_data *data) // OK
 {
     int i;
     t_philo *philo;
 
     i = 0;
-    while (i < data->philos_nbr)
+    while (i < data->philos_nbr) // OK
     {
-        philo = data->philos + i;
-        philo->id = i + 1;
-        philo->full = -1;
-        philo->meals_nbr = 0;
-        philo->data = data;
-        safe_mutex(&philo->philo_mutex, INIT);
-        assign_forks(philo, data->forks, i);
+        //philo = data->philos + i;
+        data->philos[i].id = i + 1;
+        data->philos[i].full = false;
+        data->philos[i].dead = false;
+        data->philos[i].meals_nbr = 0;
+        //data->philos[i].data = data;
+        safe_mutex(&data->philos[i].fork, INIT);
+        // assign_forks(philo, data->forks, i);
         i++;
     }
 }
 
 void    data_init(t_data *data)
 {
-    int i;
+    // int i;
 
-    i = 0;
-    data->end = 0;
-    data->all_threads_ready = 0;
-    data->threads_running_nbr = 0;
+    // i = 0;
+    // data->end = 0;
+    // data->all_threads_ready = 0;
+    // data->threads_running_nbr = 0;
     data->philos = safe_malloc(data->philos_nbr * sizeof(t_philo));
+    data->start_t = 0;
     safe_mutex(&data->data_mutex, INIT);
-    safe_mutex(&data->write_lock, INIT);
-    data->forks = safe_malloc(data->philos_nbr * sizeof(t_fork));
-    while (i < data->philos_nbr)
-    {
-        safe_mutex(&data->forks[i].fork, INIT);
-        data->forks[i].fork_id = i;
-        i++;
-    }
+    safe_mutex(&data->print_mutex, INIT);
+    safe_mutex(&data->eat_mutex, INIT);
+    safe_mutex(&data->time_mutex, INIT);
+    // data->forks = safe_malloc(data->philos_nbr * sizeof(t_fork));
+    // while (i < data->philos_nbr) // -->OK
+    // {
+    //     safe_mutex(&data->forks[i].fork, INIT);
+    //     data->forks[i].fork_id = i;
+    //     i++;
+    // }
     philo_init(data);
 }

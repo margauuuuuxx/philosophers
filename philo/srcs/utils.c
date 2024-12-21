@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../includes/philo.h"
 
 void    error_exit(const char *error)
 {
+    // DONT FORGET TO FREE BEFORE EXITING 
     printf("%s\n", error);
     exit(EXIT_FAILURE);
 }

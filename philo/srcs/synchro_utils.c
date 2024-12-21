@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../includes/philo.h"
 
 /*
     # SPINLOCK #
@@ -19,8 +19,10 @@
 */
 void    wait_all_threads(t_data *data)
 {
+    printf("all threads ready in wait all threads: %d\n", data->all_threads_ready);
     while (get_int(data->data_mutex, &data->all_threads_ready) == 0)
         ;
+    
 }
 
 /*

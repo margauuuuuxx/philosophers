@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../includes/philo.h"
 
 /*
         # PREVENTING RACE CONDITIONS #
@@ -29,9 +29,11 @@ int get_int(t_mutex mutex, int *value)
 {
     int res;
 
+    printf("value dans get int: %d\n", *value);
     safe_mutex(&mutex, LOCK);
     res = *value;
     safe_mutex(&mutex, UNLOCK);
+    printf("res dans get int: %d\n", res);
     return (res);
 }
 

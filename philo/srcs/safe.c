@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../includes/philo.h"
 
 void    *safe_malloc(size_t bytes)
 {
@@ -91,6 +91,8 @@ static void handle_thread_errors(int status, t_opcode opcode)
         error_exit("The caller does not have appropriate permission\n");
     else if (status == EINVAL && opcode == CREATE)
         error_exit("The value specified by attr is invalid.");
+    else if (status == EINVAL && (opcode == JOIN || opcode == DETACH))
+        error_exit("The  value specified by thread is not joinable\n");
     else if (status == ESRCH)
         error_exit("No thread could be found corresponding to that \
                     specified by the given thread ID, thread.");
@@ -105,16 +107,19 @@ void    safe_threads(pthread_t *thread, void *(*foo)(void *), void *data, t_opco
 {
     if (thread == NULL)
     {
+        printf("THREADDD\n");
         printf("Null thread safe thread function\n");
         return;
     }
-    if (data == NULL)
+    if (data == NULL && opcode != JOIN)
     {
+        printf("DATAAA\n");
         printf("Null data safe thread function\n");
         return;
     }
     if (!opcode)
     {
+        printf("OPCODEEE\n");
         printf("Null opcode safe thread function\n");
         return;
     }
