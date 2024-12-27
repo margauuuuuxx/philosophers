@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:13:27 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/27 11:59:07 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/27 13:26:32 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ t_all   *all_infos(t_data *data)
     {
         all[i].data = data;
         all[i].index = i;
+        i++;
     }
     return (all);
 }

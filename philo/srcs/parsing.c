@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:22:38 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/19 15:47:11 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:22:22 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ because it's the unit of usleep()
 void    parse_input(t_data *data, char **argv)
 {
     data->philos_nbr = ft_atol(argv[1]);
-    data->time_to_die = ft_atol(argv[2]) * 1e3;
-    data->time_to_eat = ft_atol(argv[3]) * 1e3;
-    data->time_to_sleep = ft_atol(argv[4]) * 1e3;
-    if (data->time_to_die < 6e4
-        || data->time_to_eat < 6e4
-        || data->time_to_die < 6e4)
+    data->time_to_die = ft_atol(argv[2]);
+    data->time_to_eat = ft_atol(argv[3]);
+    data->time_to_sleep = ft_atol(argv[4]);
+    if (data->time_to_die < 60
+        || data->time_to_eat < 60
+        || data->time_to_die < 60)
         error_exit("Incorrect input: timestamps inferior to 60ms");
     if (argv[5])
         data->nbr_max_meals = ft_atol(argv[5]);

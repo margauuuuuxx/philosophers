@@ -35,8 +35,10 @@ static void *routine(void *args)
 
     all = (t_all *)args;
     i1 = all->index;
+    printf("i1 in routine: %d\n", i1);
     data = all->data;
     i2 = left_index(data, i1);
+    printf("i2 in routine: %d\n", i2);
     data->philos[i1].last_meal_time = gettime(data);
     if (data->philos[i1].id % 2 == 0)
         sleeping(data, data->time_to_eat / 10); //WHY / 10 ? 
@@ -90,15 +92,24 @@ int threading(t_data *data)
     int     i;
 
     all = all_infos(data);
+    printf("LAAAA\n");
+    printf("all index = %d\n", all->index);
     if (!all)
         return (1);
     i = 0;
-    while (i++ < data->philos_nbr)
+    while (i < data->philos_nbr)
+    {
         safe_threads(&data->philos[i].thread_id, &routine, &all[i], CREATE);
+        i++;
+    }
     safe_threads(&data->monitor, &ft_monitor, data, CREATE);
     i = 0;
-    while (i++ < data->philos_nbr)
+    while (i < data->philos_nbr)
+    {
         safe_threads(&data->philos[i].thread_id, NULL, NULL, JOIN);
+        i++;
+    }
     safe_threads(&data->monitor, NULL, NULL, JOIN);
+    printf("LAAAA\n");
     return (free(all), 0);
 }

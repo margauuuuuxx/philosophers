@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:27 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/26 13:21:13 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:37:50 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     if (argc == 5 || argc == 6)
     {
         parse_input(&data, argv); // --> OK
-        data_init(&data);
+        data_init(&data); // --> OK
         threading(&data);
         clean(&data);
     }
