@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:27 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/19 15:32:46 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/26 13:21:13 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     {
         parse_input(&data, argv); // --> OK
         data_init(&data);
-        dinner_start(&data);
+        threading(&data);
         clean(&data);
     }
     else

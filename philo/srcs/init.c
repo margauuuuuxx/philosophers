@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:04:00 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/19 15:57:06 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/27 11:46:36 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,28 @@
                 = philo_id % philo nbr
 */
 
-static void assign_forks(t_philo *philo, t_fork *forks, int i) // OK
-{
-    int philo_nbr;
+// static void assign_forks(t_philo *philo, t_fork *forks, int i) // OK
+// {
+//     int philo_nbr;
 
-    philo_nbr = philo->data->philos_nbr;
-    printf("philo nbr dans assign fork: %d\n", philo_nbr);
-    if (philo->id % 2 == 0)
-    {
-        philo->first_fork = &forks[i];
-        philo->second_fork = &forks[philo->id % philo_nbr];
-    }
-    else
-    {
-        philo->first_fork = &forks[philo->id % philo_nbr];
-        philo->second_fork = &forks[i];
-    }
-    //printf("Philo id: %d\n1st fork: %d\n2nd fork: %d\n\n", philo->id, philo->first_fork->fork_id, philo->second_fork->fork_id);
-}
+//     philo_nbr = philo->data->philos_nbr;
+//     printf("philo nbr dans assign fork: %d\n", philo_nbr);
+//     if (philo->id % 2 == 0)
+//     {
+//         philo->first_fork = &forks[i];
+//         philo->second_fork = &forks[philo->id % philo_nbr];
+//     }
+//     else
+//     {
+//         philo->first_fork = &forks[philo->id % philo_nbr];
+//         philo->second_fork = &forks[i];
+//     }
+//     //printf("Philo id: %d\n1st fork: %d\n2nd fork: %d\n\n", philo->id, philo->first_fork->fork_id, philo->second_fork->fork_id);
+// }
 
 static void philo_init(t_data *data) // OK
 {
     int i;
-    t_philo *philo;
 
     i = 0;
     while (i < data->philos_nbr) // OK
@@ -54,6 +53,7 @@ static void philo_init(t_data *data) // OK
         data->philos[i].full = false;
         data->philos[i].dead = false;
         data->philos[i].meals_nbr = 0;
+        data->philos->last_meal_time = 0;
         //data->philos[i].data = data;
         safe_mutex(&data->philos[i].fork, INIT);
         // assign_forks(philo, data->forks, i);

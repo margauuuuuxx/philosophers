@@ -4,14 +4,14 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g
 RM		= rm -f
 
-SRCS	= srcs/dinner.c srcs/display.c srcs/getters_setters.c srcs/init.c srcs/main.c \
-			srcs/monitor.c srcs/parsing.c srcs/safe.c srcs/synchro_utils.c srcs/utils.c
+SRCS	= srcs/actions.c srcs/init.c srcs/main.c \
+		 srcs/parsing.c srcs/routine.c srcs/safe.c srcs/utils.c
 OBJSDIR	= objects
-OBJS	= $(SRCS:%.c=$(OBJSDIR)/%.o)
+OBJS	= $(SRCS:srcs/%.c=$(OBJSDIR)/%.o)
 
 all:	$(NAME)
 
-$(OBJSDIR)/%.o: %.c
+$(OBJSDIR)/%.o: srcs/%.c
 		@mkdir -p $(OBJSDIR)/srcs
 		@$(CC) $(CFLAGS) -I $(INCS) -c $< -o $@
 
@@ -20,13 +20,10 @@ $(NAME): $(OBJS)
 		@echo "Compiling all object files"
 		@echo "Program ready ! :)"
 
-%.o: %.c
-		@$(CC) $(CFLAGS) -c $< -o $@
-
 clean:
 		@$(RM) -r $(OBJSDIR)
 
-fclean:
+fclean: clean
 		@$(RM) $(NAME)
 
 re:	fclean all

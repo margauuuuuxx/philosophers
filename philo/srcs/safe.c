@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:38:40 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/19 15:45:09 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/26 12:24:52 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ static void handle_thread_errors(int status, t_opcode opcode)
 
 void    safe_threads(pthread_t *thread, void *(*foo)(void *), void *data, t_opcode opcode)
 {
+    // HAVE TO FREE WHEN THREADS FAILS 
     if (thread == NULL)
     {
         printf("THREADDD\n");
