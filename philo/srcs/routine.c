@@ -35,13 +35,13 @@ static void *routine(void *args)
 
     all = (t_all *)args;
     i1 = all->index;
-    printf("i1 in routine: %d\n", i1);
+    //printf("i1 in routine: %d\n", i1);
     data = all->data;
     i2 = left_index(data, i1);
-    printf("i2 in routine: %d\n", i2);
+    //printf("i2 in routine: %d\n", i2);
     data->philos[i1].last_meal_time = gettime(data);
     if (data->philos[i1].id % 2 == 0)
-        sleeping(data, data->time_to_eat / 10); //WHY / 10 ? 
+        ft_sleep(data, data->time_to_eat / 10); //WHY / 10 ? 
     while (!has_died(data))
     {
         if (data->philos_nbr != 1)
@@ -99,6 +99,8 @@ int threading(t_data *data)
     i = 0;
     while (i < data->philos_nbr)
     {
+        if (i % 2 != 0)
+            usleep(data->time_to_die / 8);
         safe_threads(&data->philos[i].thread_id, &routine, &all[i], CREATE);
         i++;
     }

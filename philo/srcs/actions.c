@@ -6,13 +6,13 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 12:45:18 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/27 13:40:29 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/27 13:55:37 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void    ft_sleep(t_data *data, int t)
+void    ft_sleep(t_data *data, int t)
 {
     int start;
 
@@ -64,7 +64,7 @@ void    eat(t_data *data, int i1, int i2)
 
 void    sleeping(t_data *data, int i)
 {
-    printf("i in sleeping: %d\n", i);
+    //printf("i in sleeping: %d\n", i);
     display(data, i, SLEEPING);
     ft_sleep(data, data->time_to_sleep);
 }

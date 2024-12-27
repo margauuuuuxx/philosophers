@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/27 12:16:09 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/27 13:53:00 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef enum e_status
 
 //      ##  FUNCTONS    ##
 // actions 
+void    ft_sleep(t_data *data, int t);
 void    display(t_data *data, int i, int code);
 void    takefork(t_data *data, int i1, int i2);
 void    eat(t_data *data, int i1, int i2);
