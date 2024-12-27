@@ -103,10 +103,10 @@ void    parse_input(t_data *data, char **argv)
     data->time_to_die = ft_atol(argv[2]);
     data->time_to_eat = ft_atol(argv[3]);
     data->time_to_sleep = ft_atol(argv[4]);
-    // if (data->time_to_die < 60
-    //     || data->time_to_eat < 60
-    //     || data->time_to_die < 60)
-    //     error_exit("Incorrect input: timestamps inferior to 60ms");
+    if (data->time_to_die < 60
+        || data->time_to_eat < 60
+        || data->time_to_die < 60)
+        error_exit("Incorrect input: timestamps inferior to 60ms");
     if (argv[5])
         data->nbr_max_meals = ft_atol(argv[5]);
     else

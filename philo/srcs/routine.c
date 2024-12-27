@@ -26,6 +26,13 @@ static bool eaten_enough(t_data *data)
     return (true);
 }
 
+static void only_philo(t_data *data, int i)
+{
+    display(data, i, FORK);
+    ft_sleep(data, data->time_to_die);
+    display(data, i, DIED);
+}
+
 static void *routine(void *args)
 {
     t_all   *all;
@@ -35,24 +42,27 @@ static void *routine(void *args)
 
     all = (t_all *)args;
     i1 = all->index;
-    //printf("i1 in routine: %d\n", i1);
+    printf("i1 in routine: %d\n", i1);
     data = all->data;
     i2 = left_index(data, i1);
-    //printf("i2 in routine: %d\n", i2);
+    printf("i2 in routine: %d\n", i2);
     data->philos[i1].last_meal_time = gettime(data);
+    printf("philo id: %d\n", data->philos[i1].id);
     if (data->philos[i1].id % 2 == 0)
         ft_sleep(data, data->time_to_eat / 10); //WHY / 10 ? 
     while (!has_died(data))
     {
-        if (data->philos_nbr != 1)
+        if (data->philos_nbr == 1)
+            only_philo(data, i1);
+        else 
         {
             takefork(data, i1, i2);
             eat(data, i1, i2);
             if (data->philos[i1].meals_nbr == data->nbr_max_meals)
                 return (NULL);
+            sleeping(data, i1);
+            display(data, i1, THINKING);
         }
-        sleeping(data, i1);
-        display(data, i1, THINKING);
     }
     return (NULL);
 }
