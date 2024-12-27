@@ -1,3 +1,0 @@
-check si les autres on un treshokd minimal pour les timings
-seg fault 122 safe threads 
-et null data 
