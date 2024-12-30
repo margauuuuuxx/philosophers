@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:22:38 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/30 15:04:20 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:37:51 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ because it's the unit of usleep()
 */
 void	parse_input(t_data *data, char **argv)
 {
+	if (letter_check(argv))
+		error_exit("Incorrect input: non-numeric character detected");
 	data->philos_nbr = ft_atol(argv[1]);
 	data->time_to_die = ft_atol(argv[2]);
 	data->time_to_eat = ft_atol(argv[3]);

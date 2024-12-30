@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:55:32 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/30 15:05:20 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:44:20 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,24 @@ long	time_since_last(t_data *data, int i)
 	time_since_last = now - data->philos[i].last_meal_time;
 	safe_mutex(&data->philos[i].last_meal_time_mutex, UNLOCK);
 	return (time_since_last);
+}
+
+int	letter_check(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (!(argv[i][j] >= 48 && argv[i][j] <= 57))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
