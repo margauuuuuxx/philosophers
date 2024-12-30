@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 21:04:00 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/27 17:03:38 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/30 14:36:13 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	philo_init(t_data *data) // OK
 		data->philos[i].meals_nbr = 0;
 		data->philos->last_meal_time = 0;
 		safe_mutex(&data->philos[i].fork, INIT);
+		safe_mutex(&data->philos[i].last_meal_time_mutex, INIT);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:48:39 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/27 17:02:44 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/30 14:47:50 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,13 @@ static void	*routine(void *args)
 
 	all = (t_all *)args;
 	i1 = all->index;
-	// printf("i1 in routine: %d\n", i1);
 	data = all->data;
 	i2 = left_index(data, i1);
-	// printf("i2 in routine: %d\n", i2);
+	safe_mutex(&data->philos[i1].last_meal_time_mutex, LOCK);
 	data->philos[i1].last_meal_time = gettime(data);
-	// printf("philo id: %d\n", data->philos[i1].id);
+	safe_mutex(&data->philos[i1].last_meal_time_mutex, UNLOCK);
 	if (data->philos[i1].id % 2 == 0)
-		ft_sleep(data, data->time_to_eat / 10); // WHY / 10 ?
+		ft_sleep(data, data->time_to_eat / 10);
 	while (!has_died(data))
 	{
 		if (data->philos_nbr == 1)
@@ -79,11 +78,22 @@ static void	*routine(void *args)
 	return (NULL);
 }
 
+static long	time_since_last(t_data *data, int i)
+{
+	long	now;
+	long	time_since_last;
+
+	now = gettime(data);
+	safe_mutex(&data->philos[i].last_meal_time_mutex, LOCK);
+	time_since_last = now - data->philos[i].last_meal_time;
+	safe_mutex(&data->philos[i].last_meal_time_mutex, UNLOCK);
+	return (time_since_last);
+}
+
 static void	*ft_monitor(void *args)
 {
 	t_data	*data;
 	int		i;
-	int		now;
 
 	data = (t_data *)args;
 	while (1)
@@ -91,9 +101,8 @@ static void	*ft_monitor(void *args)
 		i = 0;
 		while (i < data->philos_nbr)
 		{
-			now = gettime(data);
 			safe_mutex(&data->eat_mutex, LOCK);
-			if (now - data->philos[i].last_meal_time >= data->time_to_die)
+			if (time_since_last(data, i) >= data->time_to_die)
 			{
 				display(data, i, DIED);
 				return (safe_mutex(&data->eat_mutex, UNLOCK), NULL);
@@ -113,8 +122,6 @@ int	threading(t_data *data)
 	int		i;
 
 	all = all_infos(data);
-	// printf("LAAAA\n");
-	// printf("all index = %d\n", all->index);
 	if (!all)
 		return (1);
 	i = 0;
@@ -133,6 +140,5 @@ int	threading(t_data *data)
 		i++;
 	}
 	safe_threads(&data->monitor, NULL, NULL, JOIN);
-	// printf("LAAAA\n");
 	return (free(all), 0);
 }
