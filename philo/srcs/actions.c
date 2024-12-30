@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 12:45:18 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/27 13:55:37 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/30 14:54:32 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	ft_sleep(t_data *data, int t)
 {
 	int	start;
 
-	start = gettime(data); // CHECK USE GETTIME
+	start = gettime(data);
 	while (gettime(data) < start + t)
-		usleep(100); // CHECK FOR PRECISE USLEEP
+		usleep(100);
 }
 
 void	display(t_data *data, int i, int code)
@@ -26,7 +26,7 @@ void	display(t_data *data, int i, int code)
 	safe_mutex(&data->print_mutex, LOCK);
 	if (code == FORK && !has_died(data))
 		printf("%-6ld %d has taken a fork\n", gettime(data),
-			data->philos[i].id); // CHECK USE OF GETTIME AND GOOD ID
+			data->philos[i].id);
 	else if (code == EATING && !has_died(data))
 		printf("%-6ld %d is eating\n", gettime(data), data->philos[i].id);
 	else if (code == SLEEPING && !has_died(data))
@@ -65,7 +65,6 @@ void	eat(t_data *data, int i1, int i2)
 
 void	sleeping(t_data *data, int i)
 {
-	// printf("i in sleeping: %d\n", i);
 	display(data, i, SLEEPING);
 	ft_sleep(data, data->time_to_sleep);
 }

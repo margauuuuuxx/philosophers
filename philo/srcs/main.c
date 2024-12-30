@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:27 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/27 15:23:17 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/30 14:54:51 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	main(int argc, char **argv)
 
 	if (argc == 5 || argc == 6)
 	{
-		parse_input(&data, argv); // --> OK
+		parse_input(&data, argv);
 		if (data.philos_nbr == 0)
 			error_exit("Please submit  nbr of philos > 0 :P");
-		data_init(&data); // --> OK
+		data_init(&data);
 		threading(&data);
 		clean(&data);
 	}

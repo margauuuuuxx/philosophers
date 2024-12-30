@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:22:38 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/27 17:04:28 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:04:20 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ static long	ft_atol(const char *str)
 	return (nbr);
 }
 
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
 static void	print_nb(long n, int fd)
 {
 	if (n / 10)
@@ -94,7 +89,8 @@ void	ft_putnbr_fd(int n, int fd)
 We convert miliseconds in microseconds by doing *1e3
 because it's the unit of usleep()
 
-< 6e4: limit min treshold to ensure that the values aren't too small for the program
+< 6e4: limit min treshold to ensure that the values 
+		aren't too small for the program
 */
 void	parse_input(t_data *data, char **argv)
 {
@@ -109,8 +105,4 @@ void	parse_input(t_data *data, char **argv)
 		data->nbr_max_meals = ft_atol(argv[5]);
 	else
 		data->nbr_max_meals = -1;
-// 	printf("after parse input:\n philos nbr = %ld\n time to die = 
-// 		%ld\n time to eat = %ld\n time to sleep = %ld\n max meals = %ld\n",
-// 		data->philos_nbr, data->time_to_die, data->time_to_eat,
-// 		data->time_to_sleep, data->nbr_max_meals);
 }

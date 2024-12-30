@@ -5,7 +5,7 @@ CFLAGS	= -Wall -Wextra -Werror -g
 RM		= rm -f
 
 SRCS	= srcs/actions.c srcs/init.c srcs/main.c \
-		 srcs/parsing.c srcs/routine.c srcs/safe.c srcs/utils.c
+		 srcs/parsing.c srcs/routine.c srcs/safe.c srcs/utils.c srcs/utils2.c
 OBJSDIR	= objects
 OBJS	= $(SRCS:srcs/%.c=$(OBJSDIR)/%.o)
 

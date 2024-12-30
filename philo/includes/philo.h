@@ -6,7 +6,7 @@
 /*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:26:31 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/30 14:36:05 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:30:03 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+#include <stdatomic.h>
 
 # define DEBUG_MODE 1 // if debug mode == 1 --> then its on
 
@@ -101,9 +102,13 @@ void					safe_threads(pthread_t *thread, void *(*foo)(void *),
 // utils
 void					error_exit(const char *error);
 long					gettime(t_data *data);
-void					precise_usleep(long usec, t_data *data);
 void					clean(t_data *data);
 t_all					*all_infos(t_data *data);
 bool					has_died(t_data *data);
+// utils2
+void					ft_putchar_fd(char c, int fd);
+int						left_index(t_data *data, int i);
+bool					eaten_enough(t_data *data);
+long					time_since_last(t_data *data, int i);
 
 #endif

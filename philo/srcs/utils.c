@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marlonco <marlonco@students.s19.be>        +#+  +:+       +#+        */
+/*   By: marlonco <marlonco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:13:27 by marlonco          #+#    #+#             */
-/*   Updated: 2024/12/27 13:26:32 by marlonco         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:05:09 by marlonco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	error_exit(const char *error)
 {
-	// DONT FORGET TO FREE BEFORE EXITING
 	printf("%s\n", error);
 	exit(EXIT_FAILURE);
 }
@@ -28,12 +27,13 @@ void	error_exit(const char *error)
 		--> defined in <sys/time.h> and used in the fct gettimeofday
 	unsing long var type because milliseconds can quickly exceed
 	the max 32-bits int
+	time in MILISECONDS by default
 */
-long	gettime(t_data *data) // time in MILISECONDS by default
+long	gettime(t_data *data)
 {
-	struct timeval tv;
-	struct timeval start;
-	long result;
+	struct timeval	tv;
+	struct timeval	start;
+	long			result;
 
 	safe_mutex(&data->time_mutex, LOCK);
 	if (!data->start_t)
